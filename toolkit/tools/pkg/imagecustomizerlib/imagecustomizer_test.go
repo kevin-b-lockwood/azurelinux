@@ -149,8 +149,11 @@ func partitionDevPath(imageConnection *ImageConnection, partitionNum int) string
 func TestValidateConfigValidAdditionalFiles(t *testing.T) {
 	err := validateConfig(testDir, &imagecustomizerapi.Config{
 		OS: &imagecustomizerapi.OS{
-			AdditionalFiles: imagecustomizerapi.AdditionalFilesMap{
-				"files/a.txt": {{Path: "/a.txt"}},
+			AdditionalFiles: imagecustomizerapi.AdditionalFileList{
+				{
+					Source:      "files/a.txt",
+					Destination: "/a.txt",
+				},
 			},
 		}}, nil, true)
 	assert.NoError(t, err)
@@ -159,8 +162,11 @@ func TestValidateConfigValidAdditionalFiles(t *testing.T) {
 func TestValidateConfigMissingAdditionalFiles(t *testing.T) {
 	err := validateConfig(testDir, &imagecustomizerapi.Config{
 		OS: &imagecustomizerapi.OS{
-			AdditionalFiles: imagecustomizerapi.AdditionalFilesMap{
-				"files/missing_a.txt": {{Path: "/a.txt"}},
+			AdditionalFiles: imagecustomizerapi.AdditionalFileList{
+				{
+					Source:      "files/missing_a.txt",
+					Destination: "/a.txt",
+				},
 			},
 		}}, nil, true)
 	assert.Error(t, err)
@@ -169,8 +175,11 @@ func TestValidateConfigMissingAdditionalFiles(t *testing.T) {
 func TestValidateConfigdditionalFilesIsDir(t *testing.T) {
 	err := validateConfig(testDir, &imagecustomizerapi.Config{
 		OS: &imagecustomizerapi.OS{
-			AdditionalFiles: imagecustomizerapi.AdditionalFilesMap{
-				"files": {{Path: "/a.txt"}},
+			AdditionalFiles: imagecustomizerapi.AdditionalFileList{
+				{
+					Source:      "files",
+					Destination: "/a.txt",
+				},
 			},
 		}}, nil, true)
 	assert.Error(t, err)

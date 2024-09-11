@@ -30,10 +30,15 @@ func TestCopyAdditionalFiles(t *testing.T) {
 	copy_2_filemode := os.FileMode(0o777)
 
 	// Copy a file.
-	err = copyAdditionalFiles(baseConfigPath, map[string]imagecustomizerapi.FileConfigList{
-		"files/a.txt": {
-			{Path: "/copy_1.txt"},
-			{Path: "/copy_2.txt", Permissions: ptrutils.PtrTo(imagecustomizerapi.FilePermissions(copy_2_filemode))},
+	err = copyAdditionalFiles(baseConfigPath, imagecustomizerapi.AdditionalFileList{
+		{
+			Source:      "files/a.txt",
+			Destination: "/copy_1.txt",
+		},
+		{
+			Source:      "files/a.txt",
+			Destination: "/copy_2.txt",
+			Permissions: ptrutils.PtrTo(imagecustomizerapi.FilePermissions(copy_2_filemode)),
 		},
 	}, chroot)
 	assert.NoError(t, err)
@@ -51,9 +56,10 @@ func TestCopyAdditionalFiles(t *testing.T) {
 	verifyFileContentsSame(t, a_orig_path, copy_2_path)
 
 	// Copy a different file to the same location.
-	err = copyAdditionalFiles(baseConfigPath, map[string]imagecustomizerapi.FileConfigList{
-		"files/b.txt": {
-			{Path: "/copy_1.txt"},
+	err = copyAdditionalFiles(baseConfigPath, imagecustomizerapi.AdditionalFileList{
+		{
+			Source:      "files/b.txt",
+			Destination: "/copy_1.txt",
 		},
 	}, chroot)
 	assert.NoError(t, err)
