@@ -541,7 +541,7 @@ build_rpm_in_chroot_no_install libxslt
 chroot_and_install_rpms pam
 build_rpm_in_chroot_no_install docbook-style-xsl
 
-# libsolv needs cmake, zstd-libs
+# libsolv needs cmake, zstd-devel
 chroot_and_install_rpms cmake
 chroot_and_install_rpms zstd
 build_rpm_in_chroot_no_install libsolv
