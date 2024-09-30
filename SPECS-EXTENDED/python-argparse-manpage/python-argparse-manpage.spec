@@ -13,7 +13,7 @@ There is a limited support for (deprecated) optparse objects, too.
 
 
 Name:           python-%{modname}
-Version:        1.5
+Version:        4.6
 Release:        3%{?dist}
 Summary:        %{sum Python}
 BuildArch:      noarch
@@ -48,7 +48,6 @@ Summary:        %{sum Python 3}
 %py3_install
 
 
-
 %check
 pip3 install pytest==7.1.2 six==1.16.0
 %__python3 -m pytest
@@ -58,16 +57,19 @@ pip3 install pytest==7.1.2 six==1.16.0
 %license LICENSE
 %{_bindir}/argparse-manpage
 %{_mandir}/man1/argparse-manpage.1.*
-%{python3_sitelib}/build_manpages/cli
+%{python3_sitelib}/build_manpages
+%{python3_sitelib}/argparse_manpage
 
 %files -n python3-%{modname}
 %license LICENSE
 %{python3_sitelib}/build_manpages
 %{python3_sitelib}/argparse_manpage-%{version}*.egg-info
-%exclude %{python3_sitelib}/build_manpages/cli
 
 
 %changelog
+* Mon Sep 30 2024 Kevin Lockwood <v-klockwood@microsoft.com> - 4.6-1
+- Bring package up to date with upstream
+
 * Tue May 03 2022 Muhammad Falak <mwani@microsoft.com> - 1.5-3
 - Drop BR on pytest, six & pip install deps to enable ptest
 - License verified
