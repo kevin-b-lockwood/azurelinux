@@ -19,21 +19,22 @@ Distribution:   Azure Linux
 
 
 Name:           bcel
-Version:        5.2
-Release:        37%{?dist}
+Version:        6.10.0
+Release:        1%{?dist}
 Summary:        Byte Code Engineering Library
 License:        Apache-2.0
 Group:          Development/Libraries/Java
 URL:            http://commons.apache.org/proper/commons-bcel/
 Source0:        http://archive.apache.org/dist/commons/bcel/source/%{name}-%{version}-src.tar.gz
 Source1:        http://archive.apache.org/dist/commons/bcel/source/%{name}-%{version}-src.tar.gz.asc
-Source2:        http://repo.maven.apache.org/maven2/org/apache/%{name}/%{name}/%{version}/%{name}-%{version}.pom
+Source2:        https://repo.maven.apache.org/maven2/org/apache/%{name}/%{name}/%{version}/%{name}-%{version}.pom
 Source3:        bcel.keyring
-Patch0:         bcel-5.2-encoding.patch
 BuildRequires:  ant
 BuildRequires:  java-devel >= 1.8
 BuildRequires:  javapackages-local-bootstrap
 BuildRequires:  regexp
+BuildRequires:	jaxp_parser_impl
+BuildRequires:	xml-commons-apis
 #!BuildIgnore:  xalan-j2 xerces-j2 xml-apis xml-resolver
 Requires:       regexp
 BuildArch:      noarch
@@ -61,8 +62,7 @@ much better information about what is wrong with your code than the
 standard JVM message.
 
 %prep
-%setup -q
-%patch 0 -p1
+%setup -q -n %{_builddir}/%{name}-%{version}-src
 # remove all binary libs
 find . -name "*.jar" -exec rm -f {} \;
 # very broken build
@@ -97,6 +97,10 @@ install -m 644 %{SOURCE2} %{buildroot}%{_mavenpomdir}/%{name}-%{version}.pom
 %{_javadir}/*
 
 %changelog
+* Thu Oct 10 2024 Kevin Lockwood <v-klockwood@microsoft.com> - 6.10-1
+- Upgrade to current upstream
+- License Verified
+
 * Thu Oct 14 2021 Pawel Winogrodzki <pawelwi@microsoft.com> - 5.2-37
 - Converting the 'Release' tag to the '[number].[distribution]' format.
 

@@ -1035,8 +1035,8 @@
         "type": "other",
         "other": {
           "name": "bcel",
-          "version": "5.2",
-          "downloadUrl": "http://archive.apache.org/dist/commons/bcel/source/bcel-5.2-src.tar.gz"
+          "version": "6.10",
+          "downloadUrl": "https://dlcdn.apache.org//commons/bcel/source/bcel-6.10.0-src.tar.gz"
         }
       }
     },
